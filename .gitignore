@@ -1,6 +1,5 @@
 /vendor
 /node_modules
-/public
 /.idea
 /resources/assets/libs
 Homestead.yaml
