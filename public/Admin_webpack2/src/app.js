@@ -12,7 +12,7 @@ import angularChart from 'angular-chart.js';
 })();
 import 'rangy/lib/rangy-selectionsaverestore';
 import './../myLibs/js/textAngular-sanitize.min.js';
-import 'textAngular/dist/textAngularSetup';
+import 'textangular/dist/textAngularSetup.js';
 import textAngular from './../myLibs/js/textAngular.js';
 
 var app = angular.module("myApp", [ uirouter, ngAnimate, toastr, uibootstrap, textAngular, angularChart ]);

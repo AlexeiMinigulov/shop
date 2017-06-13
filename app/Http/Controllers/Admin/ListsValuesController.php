@@ -64,7 +64,7 @@ class ListsValuesController extends Controller
         } catch (\Exception $e) {
             return response()->json( ['status' => 500, 'msg' => 'Запись уже существует!'] );
         }
-        return response()->json( ['lists_values' => $listValue] );
+        return response()->json( ['status' => 200, 'lists_values' => $listValue] );
     }
 
     /**
