@@ -43,7 +43,8 @@
     "webpack": "^2.2.1"
   },
   "scripts": {
-    "build": "rimraf dist && webpack --config ./webpack.config.js",
+    "watch": "rimraf dist && webpack --config ./webpack.dev.config.js",
+    "build": "rimraf dist && webpack --config ./webpack.prod.config.js",
     "test": "karma start karma.conf.js"
   },
   "author": "Alexei Minigulov",
