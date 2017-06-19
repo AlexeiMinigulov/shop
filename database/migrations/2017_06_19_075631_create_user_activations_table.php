@@ -26,8 +26,6 @@ class ChangeProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('user_activations', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('user_activations');
     }
 }
