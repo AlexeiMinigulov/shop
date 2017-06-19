@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeProductsTable extends Migration
+class CreateUserActivationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class ChangeProductsTable extends Migration
     {
         Schema::create('user_activations', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
-            $table->string('token')->index();
-            $table->timestamp('created_at');
+			$table->string('token')->index();
+			$table->timestamp('created_at');
         });
     }
 
