@@ -35,17 +35,9 @@ Route::get('/order', ['middleware' => ['auth'], 'uses' => 'OrderController@index
 Route::post('/order', ['middleware' => ['auth'], 'uses' => 'OrderController@store', 'as' => 'send-order']);
 Route::get('/success-order', ['middleware' => ['auth'], 'uses' => 'OrderController@success', 'as' => 'success-order']);
 
-//Route::get('/mysql', function() {
-//	return App\Role::all();
-//});
-//
-//Route::get('/mongo', function() {
-//	return App\Category::all();
-//});
-
 Route::auth();
 
-//Route::get('/home', 'HomeController@index');
+Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
 
