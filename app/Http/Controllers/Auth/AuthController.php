@@ -104,7 +104,7 @@ class AuthController extends Controller
 
         $this->activationService->sendActivationMail($user);
 
-        return redirect('/login')->with('status', 'We sent you an activation code. Check your email.');
+        return redirect('/login')->with('status', 'Чтобы продолжить регистрацию перейдите по ссылке отправленую вам на почту.');
     }
 
     public function authenticated(Request $request, $user)
@@ -112,7 +112,7 @@ class AuthController extends Controller
         if (!$user->activated) {
             $this->activationService->sendActivationMail($user);
             auth()->logout();
-            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+            return back()->with('warning', 'Вам необходимо подтвердить регистрацию! Перейдите по ссылке отправленую на почту.');
         }
         return redirect()->intended($this->redirectPath());
     }
