@@ -12,6 +12,7 @@ use App\Http\Requests;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Mockery\CountValidator\Exception;
+use Mail;
 
 class OrderController extends Controller
 {
@@ -75,6 +76,12 @@ class OrderController extends Controller
             return abort(404);
             //return response()->json([ $e->getMessage() ]);
         }
+		
+		Mail::send('emails.order', ['user' => $user, 'orderNumber' => $requestUser->id], function ($m) use ($user) {
+
+            $m->to($user->email, $user->name)->subject('Получите Ваш заказ!');
+        });
+		
         return abort(200);
 
     }
@@ -127,7 +134,7 @@ class OrderController extends Controller
     public function success()
     {
         $categories = Category::getTreeCategories();
-
+		
         return view('success-order', ['categories' => $categories]);
     }
 }

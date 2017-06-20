@@ -1276,6 +1276,19 @@ $(function() {
 
 		return price_sep;
 	};
+	
+	// Опустит вниз футер даже если контейнер пустой
+	;(function setFooter() {
+		var footer = document.querySelector('footer'),
+			container = document.querySelector('body > .container'),
+			height = window.innerHeight,
+			heightHeader = document.querySelector('header').offsetHeight,
+			footerHeight = footer.offsetHeight;
+		
+		$(container).css({
+			'min-height' : height - footerHeight - heightHeader + 'px'
+		});
+	})();
 
 	// localStorage.removeItem( 'products' );
 
