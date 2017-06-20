@@ -115,8 +115,8 @@ class ValuesController extends Controller
             return response()->json( ['status' => 404, "msg" => "Невозможно удалить! Привязана к таблице."] );
         }
 
-        /*$value = Value::find($id);
+        $value = Value::find($id);
         $value->delete();
-        return response()->json( ['status' => 200] );*/
+        return response()->json( ['status' => 200] );
     }
 }
