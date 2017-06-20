@@ -68,7 +68,16 @@ module.exports = function createProductsCtrl($timeout, $rootScope, $scope, $stat
 		UnitsFactory.get()
 		.then( function success(data){
 
-			vm.units = data;
+			vm.units = angular.copy(data);
+			vm.typeProduct.fields.forEach( function(val, i){
+				if(val.type.name === 'integer'){
+					vm.units.find( function(v){
+						if(v.id == val.type.unit) {
+							val.type.unit = v.name;
+						}
+					} );
+				}
+			} );
 
 		}, function error(msg){
 

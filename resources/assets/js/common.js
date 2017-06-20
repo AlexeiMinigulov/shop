@@ -782,7 +782,7 @@ $(function() {
 						: ( pathUrl.indexOf('products') == -1 )
 						? '/products'
 						: pathUrl;
-	;(function liveSearch() {
+	/*;(function liveSearch() {
 
 		var posts = new Bloodhound({
 			datumTokenizer: function(datum) {
@@ -829,9 +829,59 @@ $(function() {
 			window.location.href = href;
 		});
 
-	})();
+	})();*/
+	var liveSearch = document.querySelectorAll('.typeahead'),
+		url = searchUrl + '/search?q=';
+	Array.prototype.forEach.call( liveSearch, function (val) {
+		val.addEventListener('input', function (e) {
+			e && e.preventDefault;
+			var q = this.value,
+				self = this,
+				searchDiv = document.querySelector('.search-alive');
 
+			if(q == '') {
+				if(searchDiv) {
+					searchDiv.parentNode.removeChild( searchDiv );
+				}
+				return;
+			}
 
+			$.ajax({
+				method: "GET",
+				url: url + q
+			})
+			.done(function(res) {
+				var searchDiv = document.querySelector('.search-alive');
+				res = res.products;
+				if( res.length == 0 || self.value == '' ) {
+					if(searchDiv) {
+						searchDiv.parentNode.removeChild(searchDiv);
+					}
+					return;
+				}
+				var innerHTML = renderList(res),
+					html = document.createElement('div');
+				html.className = 'search-alive';
+				html.innerHTML = innerHTML;
+				if (!searchDiv) {
+					self.parentNode.appendChild(html);
+				} else {
+					searchDiv.parentNode.replaceChild(html, searchDiv);
+				}
+			});
+
+			function  renderList(data) {
+				function renderItems(data) {
+					var result = '';
+					data.forEach( function(val){
+						result += '<div><a href="' +'/product/' + val.id + '">' +val.name+ '</a></div>';
+					} );
+					return result;
+				}
+				return renderItems(data);
+			}
+		});
+	} );
 
 	// User-Cart
 	;(function () {

@@ -245,10 +245,10 @@ class ProductController extends Controller
         if($semanticUrl) {
             $typeProduct = TypeProduct::where('semanticUrl', $semanticUrl)->first();
             $idTP = $typeProduct->_id;
-            $products = Product::where('type_product_id', $idTP)->where('name', 'like', $q.'%');
+            $products = Product::where('type_product_id', $idTP)->where('name', 'like', $q.'%')->limit(10);
         }
         else {
-            $products = Product::where('name', 'like', $q.'%');
+            $products = Product::where('name', 'like', $q.'%')->limit(10);
         }
         $products = $products->get();
 

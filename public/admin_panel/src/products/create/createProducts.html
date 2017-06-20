@@ -53,7 +53,7 @@
 							<input type="number" class="validate" step="1" 
 							min="{{ field.type.min }}" value="1" max="{{ field.type.max }}"
 							ng-model="vm.product.fields[$index]" required>
-							<label>{{ field.name }}, {{ vm.units[field.type.unit].name }}</label>
+							<label>{{ field.name }}, {{ field.type.unit }}</label>
 						</div>
 						<div class="type-list" ng-if="field.type.name==='list'"
 						ng-class="{ 'has-error' : userForm.fields[$index].$invalid && !userForm.fields[$index].$pristine }">
