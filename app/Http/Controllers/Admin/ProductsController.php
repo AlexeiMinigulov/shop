@@ -38,14 +38,19 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($productUrl)
+    public function index($productUrl, Request $request)
     {
         $user = Auth::user();
         $product = new Product();
+		$currentPage = intval( $request->input('\page', 1) );
         if( Gate::denies('show', $product) )
         {
             return abort(404);
         }
+		
+		\Illuminate\Pagination\Paginator::currentPageResolver(function() use ($currentPage) {
+            return $currentPage;
+        });
 
         $typeProduct = TypeProduct::where('semanticUrl', $productUrl)->first();
         if(!$typeProduct) {
@@ -318,11 +323,16 @@ class ProductsController extends Controller
      * @param  string $params
      * @return \Illuminate\Http\Response
      */
-    public function searchProducts($params)
+    public function searchProducts($params, Request $request)
     {
+		$currentPage = intval( $request->input('\page', 1) );
         parse_str($params, $output);
         if( !property_exists((object)$output, 'name') )
             return response()->json( ["No searched!"] );
+		
+		\Illuminate\Pagination\Paginator::currentPageResolver(function() use ($currentPage) {
+            return $currentPage;
+        });
 
         $resulte = Product::where('type_product_id', $output["type_product_id"])
                             ->where('name', 'LIKE', '%'.$output["name"].'%')

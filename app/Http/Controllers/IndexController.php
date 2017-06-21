@@ -17,9 +17,9 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $news = News::take(20)->orderBy('created_at', 'desc')->select(['id', 'title', 'picture'])->get();
+        $news = News::take(4)->select(['id', 'title', 'picture'])->get();
         $categories = Category::getTreeCategories();
-        $products = Product::take(4)->select([ 'id','name','description','price','backup_amount','type_product_id' ])->get();
+        $products = Product::take(20)->orderBy('created_at', 'desc')->select([ 'id','name','description','price','backup_amount','type_product_id' ])->get();
         $products = Product::getLogotype($products);
 
         return view('welcome', ['categories' => $categories, 'products' => $products, 'news' => $news]);

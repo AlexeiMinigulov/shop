@@ -29,27 +29,37 @@ class NewsController extends Controller
     private $height;
 
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $news = new News();
+		$currentPage = intval( $request->input('\page', 1) );
         if( Gate::denies('index', $news) )
         {
             return abort(404);
         }
+		
+		\Illuminate\Pagination\Paginator::currentPageResolver(function() use ($currentPage) {
+            return $currentPage;
+        });
 
         $news = News::orderBy('id', 'desc')->paginate(5);
         return response()->json( $news );
     }
 
-    public function search($title)
+    public function search($title, Request $request)
     {
         $user = Auth::user();
         $news = new News();
+		$currentPage = intval( $request->input('\page', 1) );
         if( Gate::denies('index', $news) )
         {
             return abort(404);
         }
+		
+		\Illuminate\Pagination\Paginator::currentPageResolver(function() use ($currentPage) {
+            return $currentPage;
+        });
 
         $news = News::where('title', 'LIKE', '%'.$title.'%')
                 ->orderBy('id', 'desc')->paginate(5);

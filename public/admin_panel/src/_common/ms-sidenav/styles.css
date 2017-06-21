@@ -15,6 +15,9 @@
 .side-nav.fixed .profile {
   padding: 0;
 }
+.side-nav.fixed .profile li.name a {
+  white-space: nowrap;
+}
 .side-nav.fixed .profile ul {
   position: relative;
   height: 180px;
