@@ -393,6 +393,13 @@ $(function() {
 			indicate = true;
 			// console.log('asyncCreate');
 		} );
+		
+		if( /*@cc_on!@*/false || !!document.documentMode ) {
+
+			paranga.addEventListener("mouseenter", () => {
+				$('.paranga').remove();
+			});
+		}
 	}
 	function parangaDel() {
 		if(!indicate) return;
