@@ -13,7 +13,8 @@ var gulp           = require('gulp'),
     cache          = require('gulp-cache'),
     autoprefixer   = require('gulp-autoprefixer'),
     ftp            = require('vinyl-ftp'),
-    notify         = require("gulp-notify");
+    notify         = require("gulp-notify"),
+    babel          = require('gulp-babel');
 
 /*
  |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ gulp.task('common-js', function() {
     return gulp.src([
         'resources/assets/js/common.js',
     ])
+        .pipe(babel({ presets: ['es2015'] }))
         .pipe(concat('common.min.js'))
         // .pipe(uglify())
         .pipe(gulp.dest('resources/assets/js'));
@@ -45,6 +47,10 @@ gulp.task('common-js', function() {
 
 gulp.task('js', ['common-js'], function() {
     return gulp.src([
+        'node_modules/js-polyfills/polyfill.min.js',
+        'node_modules/systemjs/dist/system.js',
+        'node_modules/babel-polyfill/dist/polyfill.js',
+
         'resources/assets/libs/jquery/dist/jquery.min.js',
         'resources/assets/libs/magnifier/demo/Event.js',
         'resources/assets/libs/magnifier/Magnifier.js',
